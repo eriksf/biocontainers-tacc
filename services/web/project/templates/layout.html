@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="#" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
         <link rel="stylesheet" href="http://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
@@ -10,8 +11,23 @@
         <script type="text/javascript" src="http://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script>
-        $(document).ready( function () {
-          $('#myTable').DataTable();
+        $(document).ready(function() {
+            $('#example').DataTable({
+              "ajax": {
+                "url": "http://127.0.0.1:5000/api",
+                "dataSrc": "data"
+              },
+              "deferRender": true,
+              "columns": [
+                {"data": "category"},
+                {"data": "description"},
+                {"data": "keywords"},
+                {"data": "moduleName"},
+                {"data": "name"},
+                {"data": "url"} ,
+                {"data": "version"}
+              ]
+            });
         });
         </script>
     </head>

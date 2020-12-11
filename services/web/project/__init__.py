@@ -66,6 +66,13 @@ def search():
     results = db.session.execute("SELECT * FROM biocontainers").fetchall()
     return render_template("search.html", results=results)
 
+# display all the biocontainers with details and search using ajax and deferRender
+@app.route('/ajaxSearch', methods=["POST","GET"])
+def ajaxSearch():
+    # display all results from database as a table
+    #results = db.session.execute("SELECT * FROM biocontainers").fetchall()
+    return render_template("table.html")
+
 # api route for searching biocontainer by name
 @app.route('/api/<name>')
 def biotoolsid_api(name):
@@ -74,13 +81,36 @@ def biotoolsid_api(name):
          return jsonify({"error": "Invalid name for the biocontainer, error 404"}), 404
     biotools_info = db.session.execute("SELECT * FROM biocontainers WHERE name = :name", {"name":name}).fetchone()
     return jsonify({
-            "name": biotools_info.name,
-            "description": biotools_info.description,
-            "url": biotools_info.url,
-            "keywords": biotools_info.keywords,
-            "category" : biotools_info.category,
-            "moduleName":biotools_info.modulename,
-            "version": biotools_info.version
+        "name": biotools_info.name,
+        "description": biotools_info.description,
+        "url": biotools_info.url,
+        "keywords": biotools_info.keywords,
+        "category" : biotools_info.category,
+        "moduleName":biotools_info.modulename,
+        "version": biotools_info.version
+    })
+
+# api route for displaying all records as json for ajax render
+@app.route('/api')
+def biotools_ajax():
+    # page to populate all the records from the database as json
+    results = db.session.execute("SELECT * FROM biocontainers").fetchall()
+    tools_info = {}
+    for biotool in results:
+        # create a dictionary for each tool
+        # create a list of dictionaries
+        tools_info["name"] = biotool.name
+        tools_info["description"] = biotool.description
+        tools_info["url"] = biotool.url
+        tools_info["keywords"] = biotool.keywords
+        tools_info["category"] = biotool.category
+        tools_info["moduleName"] = biotool.modulename
+        tools_info["version"] = biotool.version
+
+    return jsonify({
+        "data":[
+            tools_info
+        ]
     })
 
 # api route to add new biocontainers with authentication

@@ -95,22 +95,24 @@ def biotoolsid_api(name):
 def biotools_ajax():
     # page to populate all the records from the database as json
     results = db.session.execute("SELECT * FROM biocontainers").fetchall()
-    tools_info = {}
+    all_tools = []
     for biotool in results:
         # create a dictionary for each tool
         # create a list of dictionaries
-        tools_info["name"] = biotool.name
-        tools_info["description"] = biotool.description
-        tools_info["url"] = biotool.url
-        tools_info["keywords"] = biotool.keywords
-        tools_info["category"] = biotool.category
-        tools_info["moduleName"] = biotool.modulename
-        tools_info["version"] = biotool.version
+        tools_info = {
+            "name" : biotool.name,
+            "description" : biotool.description,
+            "category" : biotool.category,
+            "moduleName" : biotool.modulename,
+            "keywords" : biotool.keywords,
+            "url" : biotool.url,
+            "version" : biotool.version
+        }
+        all_tools.append(tools_info)
+
 
     return jsonify({
-        "data":[
-            tools_info
-        ]
+        "data": all_tools
     })
 
 # api route to add new biocontainers with authentication

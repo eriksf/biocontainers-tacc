@@ -10,7 +10,7 @@
       <br>
       Use the table below to browse and search the BioContainers modules that are installed on TACC's compute resources.
       <br><br>
-      <table id="myTable" class="table table-striped w-auto table-hover table-sm table-bordered">
+      <table id="myTable" class="display" style="width:100%">
           <thead>
             <tr style="text-align: center;">
               <th>Name</th>
@@ -23,19 +23,16 @@
             </tr>
           </thead>
           <tbody>
-            {% for result in results %}
               <tr>
-                <td>{{ result.name }}</td>
-                <td>{{ result.description }}</td>
-                <td>{{ result.category }}</td>
-                <td>{{ result.modulename }}</td>
-                <td>{{ result.keywords }}</td>
-                <td><a href="{{ result.url }}">{{ result.url }}</a></td>
-                <td>{{ result.version }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
-            {% endfor %}
           </tbody>
         </table>
-      <br><br>
 
 {% endblock %}

@@ -62,16 +62,8 @@ def home():
 # display all the biocontainers with details and search
 @app.route('/search', methods=["POST","GET"])
 def search():
-    # display all results from database as a table
-    results = db.session.execute("SELECT * FROM biocontainers").fetchall()
-    return render_template("search.html", results=results)
-
-# display all the biocontainers with details and search using ajax and deferRender
-@app.route('/ajaxSearch', methods=["POST","GET"])
-def ajaxSearch():
-    # display all results from database as a table
-    #results = db.session.execute("SELECT * FROM biocontainers").fetchall()
-    return render_template("table.html")
+    # display all results from database as a table using /api and ajax
+    return render_template("search.html")
 
 # api route for searching biocontainer by name
 @app.route('/api/<name>')
@@ -97,8 +89,6 @@ def biotools_ajax():
     results = db.session.execute("SELECT * FROM biocontainers").fetchall()
     all_tools = []
     for biotool in results:
-        # create a dictionary for each tool
-        # create a list of dictionaries
         tools_info = {
             "name" : biotool.name,
             "description" : biotool.description,
@@ -109,7 +99,6 @@ def biotools_ajax():
             "version" : biotool.version
         }
         all_tools.append(tools_info)
-
 
     return jsonify({
         "data": all_tools
@@ -133,6 +122,7 @@ def add_biocontainer():
         db.session.execute("INSERT INTO biocontainers (name, description, category, url, version, keywords, modulename) VALUES (:name, :description, :category, :url, :version, :keywords, :modulename)",
                 {"name": name, "description": description, "category":category, "url": url, "version":version, "keywords":keywords, "modulename":modulename})
         db.session.commit()
+
     return jsonify({
         "message": "Success! entries added to database!"
     })

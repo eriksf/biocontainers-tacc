@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      initContainers:
+      - name: create-db
+        image: reshg/biocontainers-tacc_web:0.4
+        command: ['python','manage.py','create_db']
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: url
+        - name: FLASK_APP
+          value: "project/__init__.py"
+        - name: FLASK_ENV
+          value: "production"
+      - name: seed-db
+        image: reshg/biocontainers-tacc_web:0.4
+        command: ['python','manage.py','seed_db']
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: url
+        - name: FLASK_APP
+          value: "project/__init__.py"
+        - name: FLASK_ENV
+          value: "production"
+      containers:
+      - name: web
+        image: reshg/biocontainers-tacc_web:0.4
+        command: ["gunicorn"]
+        args: ["--bind","0.0.0.0:5000","manage:app"]
+        ports:
+        - name: web
+          containerPort: 5000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: url
+        - name: FLASK_APP
+          value: "project/__init__.py"
+        - name: FLASK_ENV
+          value: "production"
+
+
+

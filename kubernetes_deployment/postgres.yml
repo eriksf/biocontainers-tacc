@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:13
+        ports:
+        - name: postgres
+          containerPort: 5432
+        env:
+        - name: PGDATA
+          value: "/pgdata/data"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres
+              key: pass
+        volumeMounts:
+        - name: postgres-data
+          mountPath: "/pgdata"
+      volumes:
+      - name: postgres-data
+        persistentVolumeClaim:
+          claimName: postgres-vol01
+

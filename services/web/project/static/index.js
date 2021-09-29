@@ -16,7 +16,7 @@ function format ( d ) {
 $(document).ready(function() {
     $('#myTable').DataTable({
         "ajax": {
-            "url": "http://127.0.0.1:5000/api",
+            "url": "https://biocontainers.tacc.utexas.edu/api",
             "dataSrc": "data"
          },
         "deferRender": true,

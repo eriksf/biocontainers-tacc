@@ -1,6 +1,9 @@
-# biocontainers-tacc
+# Biocontainers @ TACC 
 
-To start up the service
+# Search the BioContainers modules that are installed on TACC's compute resources at: https://biocontainers.tacc.utexas.edu/search 
+
+
+## To start up the service
 
 ```
   docker-compose -f docker-compose.yml up -d --build
@@ -8,21 +11,21 @@ To start up the service
   docker-compose -f docker-compose.yml exec web python manage.py seed_db
 ```
 
-Troubleshoot using docker-compose logs
+- Troubleshoot using docker-compose logs
 
 ```
   docker-compose logs -f
 
 ```
-Bring down all volumes:
+- Bring down all volumes:
 
 ```
   docker-compose -f docker-compose.yml down -v
 ```
 
-Launch service at:
+- Launch service at:
 
 ```
-  https://127.0.0.1:5000
+  https://localhost:5000
 
 ```

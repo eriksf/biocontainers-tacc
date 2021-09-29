@@ -82,3 +82,58 @@ table {
       background-color: #E8E8E8;
       color: black;
    }
+
+td.details-control {
+    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+}
+
+button {color: green}
+
+.disable-button {
+  color: #f00 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+div.dataTables_wrapper {
+        width: 80%;
+        margin: 0 auto;
+}
+
+.truncate {
+  max-width:200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: sticky;
+}
+
+.truncatename {
+  max-width:50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trunc {
+  height: 18px;
+  width: 140px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  margin: 0 5px 0 5px;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #000;
+}
+div.container {
+        width: 80%;
+    }

@@ -6,6 +6,7 @@ import simplejson
 from flask import Flask, render_template, request, redirect, jsonify, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPTokenAuth
+from . import gatherToolVersions
 
 app = Flask(__name__)
 app.config.from_object("project.config.Config")
@@ -31,7 +32,7 @@ class Biocontainers(db.Model):
     category = db.Column(db.String())
     keywords = db.Column(db.String())
     description = db.Column(db.String())
-    url = db.Column(db.String())
+    url = db.Column(db.String(128))
     modulename = db.Column(db.String())
 
     def __init__(self, name, version, category, keywords, description,
@@ -57,7 +58,7 @@ def verify_token(token):
 # homepage
 @app.route("/")
 def home():
-    return render_template("homepage.html")
+    return render_template("homePage.html")
 
 # display all the biocontainers with details and search
 @app.route('/search', methods=["POST","GET"])
@@ -86,17 +87,21 @@ def biotoolsid_api(name):
 @app.route('/api')
 def biotools_ajax():
     # page to populate all the records from the database as json
+
     results = db.session.execute("SELECT * FROM biocontainers").fetchall()
+    # total: 28762 tool entries
+    tools_collection = gatherToolVersions.gatherToolVersions(results)
     all_tools = []
-    for biotool in results:
+
+    for tool in tools_collection:
         tools_info = {
-            "name" : biotool.name,
-            "description" : biotool.description,
-            "category" : biotool.category,
-            "moduleName" : biotool.modulename,
-            "keywords" : biotool.keywords,
-            "url" : biotool.url,
-            "version" : biotool.version
+            "name" : tool,
+            "description" : tools_collection[tool]['description'],
+            "category" : tools_collection[tool]['category'],
+            "modulenames" : tools_collection[tool]['modulenames'],
+            "keywords" : tools_collection[tool]['keywords'],
+            "url" : tools_collection[tool]['url'],
+            "versions" : tools_collection[tool]['versions']
         }
         all_tools.append(tools_info)
 

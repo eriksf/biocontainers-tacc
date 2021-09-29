@@ -1,6 +1,6 @@
-# Biocontainers @ TACC 
+# BioContainers @ TACC 
 
-Search the BioContainers modules that are installed on TACC's compute resources at: [Biocontainers @ TACC](https://biocontainers.tacc.utexas.edu/search)
+Search the BioContainers modules that are installed on TACC's compute resources at: [BioContainers @ TACC](https://biocontainers.tacc.utexas.edu/search)
 
 
 ## To start up the service

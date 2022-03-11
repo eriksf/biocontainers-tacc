@@ -2,6 +2,7 @@ import os
 import requests
 import json
 import simplejson
+import os.path
 
 from flask import Flask, render_template, request, redirect, jsonify, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -45,10 +46,10 @@ class Biocontainers(db.Model):
         self.url = url
         self.modulename = modulename
 
-tokens = {
-    "secret-token-1": "greg",
-    "secret-token-2": "shweta"
-}
+# read in the tokens for authentication
+if os.path.exists('tokens.json'):
+    with open('tokens.json') as f:
+        tokens = json.load(f)
 
 @auth.verify_token
 def verify_token(token):

@@ -48,9 +48,13 @@ class Biocontainers(db.Model):
 
 
 # read in the tokens for authentication
-if os.path.exists('tokens.json'):
-    with open('tokens.json') as f:
-        tokens = json.load(f)
+if 'VALID_TOKENS' in os.environ:
+    try:
+        tokens_str = os.environ.get('VALID_TOKENS')
+        tokens = json.loads(tokens_str)
+        app.logger.debug(json.dumps(tokens, indent=4))
+    except ValueError as e:
+        app.logger.error("VALID_TOKENS is not a valid JSON string: {}".format(e))
 
 
 @auth.verify_token

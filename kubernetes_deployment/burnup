@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./set-pgpass
+source ./set-tokens
 
 kubectl apply -f pvc.yml
 kubectl apply -f postgres.yml 

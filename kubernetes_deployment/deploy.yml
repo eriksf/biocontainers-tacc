@@ -56,4 +56,11 @@ spec:
           value: "project/__init__.py"
         - name: FLASK_ENV
           value: "production"
+        - name: DATABASE
+          value: "postgres"
+        - name: VALID_TOKENS
+          valueFrom:
+            secretKeyRef:
+              name: valid-tokens
+              key: tokens
 

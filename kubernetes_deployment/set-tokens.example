@@ -1,0 +1,5 @@
+#!/bin/bash
+
+VALID_TOKENS=""
+
+kubectl create secret generic valid-tokens --from-literal=tokens="$VALID_TOKENS"

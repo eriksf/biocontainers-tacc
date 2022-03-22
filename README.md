@@ -4,7 +4,7 @@ Search the BioContainers modules that are installed on TACC's compute resources 
 
 ## Development
 
-Set up environment files
+- Set up environment files
 ```
 cp .env.dev.sample .env.dev
 cp .env.dev.db.sample .env.dev.db
@@ -37,7 +37,7 @@ and edit.
 
 ## Production
 
-Set up environment files
+- Set up environment files
 ```
 cp .env.prod.sample .env.prod
 cp .env.prod.db.sample .env.prod.db

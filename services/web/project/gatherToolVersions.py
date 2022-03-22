@@ -2,6 +2,7 @@
    Gather a tool's versions / moduleNames
 '''
 
+
 def gatherToolVersions(results):
     # parse the output to group versions and module names of a tool
     tools_collection = {}
@@ -27,4 +28,3 @@ def gatherToolVersions(results):
         tools_collection[tool]['modulenames'] = list(tools_collection[tool]['modulenames'])
 
     return tools_collection
-

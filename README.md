@@ -48,6 +48,8 @@ and edit.
 
 ```
   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec web python manage.py create_db
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml exec web python manage.py seed_db
 ```
 
 - Troubleshoot using docker-compose logs

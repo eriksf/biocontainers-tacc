@@ -20,7 +20,6 @@ and edit.
 
 ```
   docker-compose logs -f
-
 ```
 - Bring down all volumes:
 
@@ -32,7 +31,6 @@ and edit.
 
 ```
   https://localhost:5000
-
 ```
 
 ## Production
@@ -56,7 +54,6 @@ and edit.
 
 ```
   docker-compose logs -f
-
 ```
 - Bring down all volumes:
 
@@ -68,5 +65,4 @@ and edit.
 
 ```
   https://localhost:5000
-
 ```

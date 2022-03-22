@@ -1,9 +1,8 @@
 #!/bin/bash
 
-source ~/set-pgpass
+source ./set-pgpass
 
 kubectl apply -f pvc.yml
 kubectl apply -f postgres.yml 
 kubectl apply -f deploy.yml
 kubectl apply -f service.yml
-

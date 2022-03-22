@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PASS=""
+
+kubectl create secret generic postgres --from-literal=pass="$PASS" --from-literal=url="postgresql://{user}:$PASS@{server}:5432/{database}"

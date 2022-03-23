@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo ""
+echo "*****    Show environment for containers    *****"
+echo ""
+kubectl get all -o wide
+echo ""
+echo "*****    Show secrets   *****"
+echo ""
+echo "Postgres pwd: "
+kubectl get secret postgres -o json | jq -r '.data["pass"]' | base64 -d
+echo "";echo ""
+echo "Postgres url: "
+kubectl get secret postgres -o json | jq -r '.data["url"]' | base64 -d
+echo "";echo ""
+echo "Valid tokens: "
+kubectl get secret valid-tokens -o json | jq -r '.data["tokens.json"]' | base64 -d
+echo "";echo ""

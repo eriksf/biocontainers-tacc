@@ -17,10 +17,9 @@ kind: Service
 metadata:
   name: web
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: web
   ports:
   - name: web
     port: 5000
-    targetPort: 5000

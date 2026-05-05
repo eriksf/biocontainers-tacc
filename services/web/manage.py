@@ -1,6 +1,7 @@
 import csv
 from flask.cli import FlaskGroup
 from project import app, db, User
+from sqlalchemy import text
 
 cli = FlaskGroup(app)
 
@@ -21,7 +22,7 @@ def seed_db():
     reader = csv.reader(f)
     next(reader, None)
     for name, version, category, keywords, description, url, moduleName in reader:
-        db.session.execute("INSERT INTO biocontainers (name, version, category, keywords, description, url, moduleName) VALUES (:name, :version, :category, :keywords, :description, :url, :moduleName)",
+        db.session.execute(text("INSERT INTO biocontainers (name, version, category, keywords, description, url, moduleName) VALUES (:name, :version, :category, :keywords, :description, :url, :moduleName)"),
                            {"name": name, "version": version, "category": category, "keywords": keywords, "description": description, "url": url, "moduleName": moduleName})
         print("Adding data into biocontainers table")
     db.session.commit()

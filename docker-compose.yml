@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   web:
-    image: eriksf/biocontainers-tacc-web:latest
-    command: gunicorn --bind 0.0.0.0:5000 manage:app
+    image: eriksf/biocontainers-tacc-web:${APP_VERSION}
+    command: gunicorn --bind 0.0.0.0:5000 -w 2 manage:app
     ports:
       - 5000:5000
     depends_on:

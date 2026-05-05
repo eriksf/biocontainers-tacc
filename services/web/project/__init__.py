@@ -5,6 +5,7 @@ import os.path
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPTokenAuth
+from sqlalchemy import text
 from . import gatherToolVersions
 
 app = Flask(__name__)
@@ -79,10 +80,10 @@ def search():
 # api route for searching biocontainer by name
 @app.route('/api/<name>')
 def biotoolsid_api(name):
-    name_val = db.session.execute("SELECT name FROM biocontainers WHERE name = :name", {"name": name}).fetchone()
+    name_val = db.session.execute(text("SELECT name FROM biocontainers WHERE name = :name"), {"name": name}).fetchone()
     if name_val is None:
         return jsonify({"error": "Invalid name for the biocontainer, error 404"}), 404
-    biotools_info = db.session.execute("SELECT * FROM biocontainers WHERE name = :name", {"name": name}).fetchone()
+    biotools_info = db.session.execute(text("SELECT * FROM biocontainers WHERE name = :name"), {"name": name}).fetchone()
     return jsonify({
         "name": biotools_info.name,
         "description": biotools_info.description,
@@ -99,7 +100,7 @@ def biotoolsid_api(name):
 def biotools_ajax():
     # page to populate all the records from the database as json
 
-    results = db.session.execute("SELECT * FROM biocontainers").fetchall()
+    results = db.session.execute(text("SELECT * FROM biocontainers")).fetchall()
     # total: 28762 tool entries
     tools_collection = gatherToolVersions.gatherToolVersions(results)
     all_tools = []
@@ -136,7 +137,7 @@ def add_biocontainer():
         version = item['version']
         category = item['category']
         keywords = item['keywords']
-        db.session.execute("INSERT INTO biocontainers (name, description, category, url, version, keywords, modulename) VALUES (:name, :description, :category, :url, :version, :keywords, :modulename)",
+        db.session.execute(text("INSERT INTO biocontainers (name, description, category, url, version, keywords, modulename) VALUES (:name, :description, :category, :url, :version, :keywords, :modulename)"),
                            {"name": name, "description": description, "category": category, "url": url, "version": version, "keywords": keywords, "modulename": modulename})
         db.session.commit()
 

@@ -13,7 +13,7 @@ spec:
     spec:
       initContainers:
       - name: create-db
-        image: eriksf/biocontainers-tacc-web:0.5.0
+        image: eriksf/biocontainers-tacc-web:0.6.0
         command: ['python','manage.py','create_db']
         env:
         - name: DATABASE_URL
@@ -26,7 +26,7 @@ spec:
         - name: FLASK_ENV
           value: "production"
       - name: seed-db
-        image: eriksf/biocontainers-tacc-web:0.5.0
+        image: eriksf/biocontainers-tacc-web:0.6.0
         command: ['python','manage.py','seed_db']
         env:
         - name: DATABASE_URL
@@ -40,9 +40,9 @@ spec:
           value: "production"
       containers:
       - name: web
-        image: eriksf/biocontainers-tacc-web:0.5.0
+        image: eriksf/biocontainers-tacc-web:0.6.0
         command: ["gunicorn"]
-        args: ["--bind","0.0.0.0:5000","manage:app"]
+        args: ["--bind","0.0.0.0:5000","-w","2","manage:app"]
         ports:
         - name: web
           containerPort: 5000

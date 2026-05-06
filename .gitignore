@@ -309,4 +309,9 @@ Temporary Items
 ### Flake8 ###
 .flake8
 
+### k8s ###
+set-pgpass
+set-tokens
+tokens.json
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,visualstudiocode,python,flask
